@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 
-function square(props) {
+function Square(props) {
     return (
       <button className="square" onClick= 
       {props.onClick}>
@@ -28,6 +28,9 @@ function square(props) {
 
     handleClick(i) { 
         const squares = this.state.squares.slice();
+        if (calculateWinner(squares) || squares[i]) {
+            return;
+        }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             squares: squares,
@@ -92,6 +95,12 @@ function square(props) {
     }
   }
 
+ 
+  // ========================================
+  
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<Game />);
+
   function calculateWinner(squares) {
     const lines = [
       [0, 1, 2],
@@ -112,7 +121,3 @@ function square(props) {
     return null;
   }
   
-  // ========================================
-  
-  const root = ReactDOM.createRoot(document.getElementById("root"));
-  root.render(<Game />);
